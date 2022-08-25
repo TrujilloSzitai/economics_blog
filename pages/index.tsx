@@ -1,7 +1,7 @@
 import type { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
 import { PostAdrift, PostCard} from "../components";
-import { FeaturedPosts } from '../sections/'
+import { FeaturedPosts } from '../sections'
 import { getPosts } from "../services";
 
 interface Props {
