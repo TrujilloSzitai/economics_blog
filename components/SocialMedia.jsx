@@ -14,7 +14,7 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   position: "absolute",
   "&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
     bottom: theme.spacing(2),
-    right: theme.spacing(2),
+    right: theme.spacing(2)
   },
   "&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight": {
     top: theme.spacing(2),
@@ -49,12 +49,14 @@ export default function SocialMedia() {
           hidden={false}
           icon={<GroupIcon />}
           direction='up'
+          sx={{ '& .MuiFab-primary': { backgroundColor: '#db2777', color: 'white', '&:hover': {backgroundColor: '#f1f5f9', color: '#0f172a'} } }}
         >
           {actions.map((action) => (
             <SpeedDialAction
               key={action.name}
               icon={action.icon}
               tooltipTitle={action.name}
+              sx={{ backgroundColor: '#db2777', color: 'white', '&:hover': {backgroundColor: '#f1f5f9', color: '#0f172a'}}}
             />
           ))}
         </StyledSpeedDial>
