@@ -3,6 +3,8 @@ import moment from "moment";
 import 'moment/locale/es'
 import Link from "next/link";
 
+/* TARJETA PARA MOSTRAR LOS POSTS EN LA PAG DE INICIO */
+
 const PostCard = ({ post }) => {
   console.log(post);
   return (

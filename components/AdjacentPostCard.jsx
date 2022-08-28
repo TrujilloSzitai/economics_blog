@@ -3,6 +3,8 @@ import moment from 'moment';
 import 'moment/locale/es'
 import Link from 'next/link';
 
+/* SECCIÓN PARA MOSTRAR POSTS ADYACENTES */
+
 const AdjacentPostCard = ({ post, position }) => (
   <>
     <div className="absolute rounded-lg bg-center bg-no-repeat bg-cover shadow-md inline-block w-full h-72" style={{ backgroundImage: `url('${post.thumbnail.url}')` }} />

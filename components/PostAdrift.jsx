@@ -3,6 +3,8 @@ import moment from 'moment'
 import 'moment/locale/es'
 import { getSimilarPosts, getRecentPosts } from '../services'
 
+/* TARJETA FLOTANTE PARA MOSTRAR LOS POSTS RECIENTES O RELACIONADOS (dependiendo de donde se encuentre el usuario) */
+
 const PostAdrift = ({categories, slug}) => {
   const [relatedPosts, setRelatedPosts] = useState([]);
 

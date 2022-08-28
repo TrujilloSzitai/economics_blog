@@ -2,6 +2,8 @@ import React from "react";
 import moment from "moment";
 import "moment/locale/es";
 
+/* ALGORITMO PARA ESTABLECER LOS DETALLES DEL DISPLAY DE CADA POST */
+
 const PostDetail = ({ post }) => {
 
   const getContentFragment = (index, text, item, type) =>{

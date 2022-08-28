@@ -3,6 +3,8 @@ import { submitComment } from "../services";
 import $ from 'jquery'
 import 'animate.css';
 
+/* FORMULARIO PARA PUBLICAR COMENTARIOS */
+
 const CommentsForm = ({ slug }) => {
   const [error, setError] = useState(false);
   const [localStorage, setLocalStorage] = useState(null);

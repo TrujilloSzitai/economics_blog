@@ -2,6 +2,7 @@ import { request, gql } from "graphql-request";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
+/* Obtener la información de todos los posts */
 export const getPosts = async () => {
   const query = gql`
     query GetPosts {
@@ -38,6 +39,7 @@ export const getPosts = async () => {
   return response.postsConnection.edges;
 };
 
+/* Obtener toda la información de los posts para su lectura */
 export const getPostDetails = async (slug) => {
   const query = gql`
     query GetPostDetails($slug: String!) {
@@ -72,6 +74,7 @@ export const getPostDetails = async (slug) => {
   return response.post;
 };
 
+/* Mostrar los posts más recientes */
 export const getRecentPosts = async () => {
   const query = gql`
     query GetRecentPosts(){
@@ -94,6 +97,7 @@ export const getRecentPosts = async () => {
   return response.posts;
 };
 
+/* Relacionar posts */
 export const getSimilarPosts = async (categories, slug) => {
   const query = gql`
     query GetSimilarPosts($slug: String!, $categories: [String!]) {
@@ -115,10 +119,13 @@ export const getSimilarPosts = async (categories, slug) => {
   return response.posts;
 };
 
+/* Obtener todas las categorías */
 export const getCategories = async () => {
   const query = gql`
     query GetCategories {
-      categories{
+      categories(
+        orderBy: name_ASC
+      ){
         name
         slug
       }
@@ -130,6 +137,7 @@ export const getCategories = async () => {
   return response.categories;
 };
 
+/* Filtrar posts por categoría */
 export const getCategoryPost = async (slug) => {
   const query = gql`
     query GetCategoryPost($slug: String!) {
@@ -167,6 +175,7 @@ export const getCategoryPost = async (slug) => {
   return result.postsConnection.edges;
 };
 
+/* Subir comentario a la DB */
 export const submitComment = async (comment) => {
   const result = await fetch('/api/comments', {
     method: 'POST',
@@ -179,6 +188,7 @@ export const submitComment = async (comment) => {
   return result.json();
 }
 
+/* Obtener todos los comentarios de un post */
 export const getComments = async (slug) => {
   const query = gql`
     query GetComments($slug: String!) {
@@ -197,6 +207,7 @@ export const getComments = async (slug) => {
   return response.comments;
 };
 
+/* Obtener los posts destacados */
 export const getFeaturedPosts = async () => {
   const query = gql`
       query getFeaturedPosts() {
@@ -225,6 +236,7 @@ export const getFeaturedPosts = async () => {
     return response.posts;
 };
 
+/* Obtener los posts adyacentes en relación a la fecha de publicación -beta- */
 export const getAdjacentPosts = async (createdAt, slug) => {
   const query = gql`
     query GetAdjacentPosts($createdAt: DateTime!,$slug:String!) {

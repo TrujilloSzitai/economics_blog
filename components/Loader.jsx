@@ -1,5 +1,7 @@
 import React from 'react';
 
+/* loader promedio */
+
 const Loader = () => (
   <div className="text-center">
     <button

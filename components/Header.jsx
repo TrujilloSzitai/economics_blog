@@ -4,7 +4,9 @@ import { getCategories } from "../services";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
+/* Navbar promedio */
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
@@ -26,15 +28,24 @@ const Header = () => {
 
   return (
     <div className="w-full mx-auto px-10 mb-8 bg-white shadow-xl z-50">
-      <div className="w-full inline-block py-4 align-middle">
+      <div className="w-full py-4 flex justify-between">
         <div className="float-left block">
           <Link href="/">
-            <span className="md:text-4xl cursor-pointer font-bold text-2xl text-black">
-              Wilde
-            </span>
+            <div className="flex items-center">
+              <div className="cursor-pointer logo-on-hover"></div>
+{/*               <img
+                src="/assets/img/icon.svg"
+                width="64px"
+                height="64px"
+                className="cursor-pointer logo-on-hover"
+              /> */}
+              <span className="md:text-4xl cursor-pointer font-bold text-2xl text-black fill-on-hover" data-text='Wilde'>
+                Wilde
+              </span>
+            </div>
           </Link>
         </div>
-        <div className="float-right contents">
+        <div className="float-right contents items-center">
           <IconButton
             aria-label="more"
             id="long-button"
