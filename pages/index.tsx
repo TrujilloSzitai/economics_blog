@@ -1,7 +1,7 @@
 import type { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
-import { PostAdrift, PostCard} from "../components";
-import { FeaturedPosts } from '../sections'
+import { PostAdrift, PostCard } from "../components";
+import { FeaturedPosts } from "../sections";
 import { getPosts } from "../services";
 
 interface Props {
@@ -37,10 +37,14 @@ const Home: NextPage<Props> = (props) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const posts = (await getPosts()) || [];
-  return {
-    props: {
-      posts,
-    },
-  };
+  try {
+    const posts = (await getPosts()) || [];
+    return {
+      props: {
+        posts,
+      },
+    };
+  } catch (err) {
+    console.log(err);
+  }
 };

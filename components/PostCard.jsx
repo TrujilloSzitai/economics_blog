@@ -6,7 +6,6 @@ import Link from "next/link";
 /* TARJETA PARA MOSTRAR LOS POSTS EN LA PAG DE INICIO */
 
 const PostCard = ({ post }) => {
-  console.log(post);
   return (
     <div className="bg-white shadow-lg rounded-lg lg:p-8 pb-12 mb-8">
       <div className="relative overflow-hidden shadow-md pb-80 mb-6">

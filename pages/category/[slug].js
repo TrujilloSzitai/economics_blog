@@ -23,12 +23,13 @@ const PostsPerCategory = ({ posts }) => {
               <div className="relative overflow-hidden mb-6">
                 <img
                   src="/assets/img/page-not-found.svg"
-                  alt='Aún no hay artículos publicados'
+                  alt="Aún no hay artículos publicados"
                   className="object-top h-full w-full"
                 />
               </div>
               <h1 className="transition duration-700 text-center mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold">
-                ¡Ups! Parece que aún no se han publicado artículos en esta categoría.
+                ¡Ups! Parece que aún no se han publicado artículos en esta
+                categoría.
               </h1>
             </div>
           )}
@@ -46,19 +47,26 @@ export default PostsPerCategory;
 
 // Fetch data at build time
 export async function getStaticProps({ params }) {
-  const posts = await getCategoryPost(params.slug);
-
-  return {
-    props: { posts },
-  };
+  try {
+    const posts = await getCategoryPost(params.slug);
+    return {
+      props: { posts },
+    };
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 // Specify dynamic routes to pre-render pages based on data.
 // The HTML is generated at build time and will be reused on each request.
 export async function getStaticPaths() {
-  const categories = await getCategories();
-  return {
-    paths: categories.map(({ slug }) => ({ params: { slug } })),
-    fallback: false,
-  };
+  try {
+    const categories = await getCategories();
+    return {
+      paths: categories.map(({ slug }) => ({ params: { slug } })),
+      fallback: false,
+    };
+  } catch (err) {
+    console.log(err);
+  }
 }

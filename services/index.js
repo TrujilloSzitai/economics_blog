@@ -33,23 +33,25 @@ export const getPosts = async () => {
       }
     }
   `;
-
-  const response = await request(graphqlAPI, query);
-
-  return response.postsConnection.edges;
+  try {
+    const response = await request(graphqlAPI, query);
+    return response.postsConnection.edges;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /* Obtener toda la información de los posts para su lectura */
 export const getPostDetails = async (slug) => {
   const query = gql`
     query GetPostDetails($slug: String!) {
-      post(where: {slug: $slug}) {
+      post(where: { slug: $slug }) {
         title
         excerpt
         thumbnail {
           url
         }
-        author{
+        author {
           name
           bio
           pfp {
@@ -68,10 +70,12 @@ export const getPostDetails = async (slug) => {
       }
     }
   `;
-
-  const response = await request(graphqlAPI, query, {slug});
-
-  return response.post;
+  try {
+    const response = await request(graphqlAPI, query, { slug });
+    return response.post;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /* Mostrar los posts más recientes */
@@ -91,10 +95,12 @@ export const getRecentPosts = async () => {
         }
     }
   `;
-
-  const response = await request(graphqlAPI, query);
-
-  return response.posts;
+  try {
+    const response = await request(graphqlAPI, query);
+    return response.posts;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /* Relacionar posts */
@@ -102,7 +108,10 @@ export const getSimilarPosts = async (categories, slug) => {
   const query = gql`
     query GetSimilarPosts($slug: String!, $categories: [String!]) {
       posts(
-        where: {slug_not: $slug, AND: {categories_some: {slug_in: $categories}}}
+        where: {
+          slug_not: $slug
+          AND: { categories_some: { slug_in: $categories } }
+        }
         last: 5
       ) {
         title
@@ -114,34 +123,39 @@ export const getSimilarPosts = async (categories, slug) => {
       }
     }
   `;
-  const response = await request(graphqlAPI, query, { slug, categories });
 
-  return response.posts;
+  try {
+    const response = await request(graphqlAPI, query, { slug, categories });
+    return response.posts;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /* Obtener todas las categorías */
 export const getCategories = async () => {
   const query = gql`
     query GetCategories {
-      categories(
-        orderBy: name_ASC
-      ){
+      categories(orderBy: name_ASC) {
         name
         slug
       }
     }
   `;
 
-  const response = await request(graphqlAPI, query);
-
-  return response.categories;
+  try {
+    const response = await request(graphqlAPI, query);
+    return response.categories;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /* Filtrar posts por categoría */
 export const getCategoryPost = async (slug) => {
   const query = gql`
     query GetCategoryPost($slug: String!) {
-      postsConnection(where: {categories_some: {slug: $slug}}) {
+      postsConnection(where: { categories_some: { slug: $slug } }) {
         edges {
           cursor
           node {
@@ -170,31 +184,35 @@ export const getCategoryPost = async (slug) => {
     }
   `;
 
-  const result = await request(graphqlAPI, query, { slug });
-
-  return result.postsConnection.edges;
+  try {
+    const result = await request(graphqlAPI, query, { slug });
+    return result.postsConnection.edges;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /* Subir comentario a la DB */
 export const submitComment = async (comment) => {
-  const result = await fetch('/api/comments', {
-    method: 'POST',
-    body: JSON.stringify(comment),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-
-  return result.json();
-}
+  try {
+    const result = await fetch("/api/comments", {
+      method: "POST",
+      body: JSON.stringify(comment),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return result.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 /* Obtener todos los comentarios de un post */
 export const getComments = async (slug) => {
   const query = gql`
     query GetComments($slug: String!) {
-      comments(
-        where: { post: {slug: $slug }}
-      ) {
+      comments(where: { post: { slug: $slug } }) {
         name
         createdAt
         comment
@@ -202,9 +220,12 @@ export const getComments = async (slug) => {
     }
   `;
 
-  const response = await request(graphqlAPI, query, { slug });
-
-  return response.comments;
+  try {
+    const response = await request(graphqlAPI, query, { slug });
+    return response.comments;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /* Obtener los posts destacados */
@@ -229,21 +250,24 @@ export const getFeaturedPosts = async () => {
           createdAt
         }
       }
-    `
+    `;
 
+  try {
     const response = await request(graphqlAPI, query);
-
     return response.posts;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /* Obtener los posts adyacentes en relación a la fecha de publicación -beta- */
 export const getAdjacentPosts = async (createdAt, slug) => {
   const query = gql`
-    query GetAdjacentPosts($createdAt: DateTime!,$slug:String!) {
-      next:posts(
+    query GetAdjacentPosts($createdAt: DateTime!, $slug: String!) {
+      next: posts(
         first: 1
         orderBy: createdAt_ASC
-        where: {slug_not: $slug, AND: {createdAt_gte: $createdAt}}
+        where: { slug_not: $slug, AND: { createdAt_gte: $createdAt } }
       ) {
         title
         thumbnail {
@@ -252,10 +276,10 @@ export const getAdjacentPosts = async (createdAt, slug) => {
         createdAt
         slug
       }
-      previous:posts(
+      previous: posts(
         first: 1
         orderBy: createdAt_DESC
-        where: {slug_not: $slug, AND: {createdAt_lte: $createdAt}}
+        where: { slug_not: $slug, AND: { createdAt_lte: $createdAt } }
       ) {
         title
         thumbnail {
@@ -267,7 +291,10 @@ export const getAdjacentPosts = async (createdAt, slug) => {
     }
   `;
 
-  const result = await request(graphqlAPI, query, { slug, createdAt });
-
-  return { next: result.next[0], previous: result.previous[0] };
+  try {
+    const result = await request(graphqlAPI, query, { slug, createdAt });
+    return { next: result.next[0], previous: result.previous[0] };
+  } catch (err) {
+    console.log(err);
+  }
 };

@@ -28,7 +28,10 @@ const PostDetails = ({ post }) => {
         </div>
         <div className="col-span-1 lg:col-span-4">
           <div className="relative lg:sticky top-8">
-            <PostAdrift slug={post.slug} categories={post.categories.map((category) => category.slug)} />
+            <PostAdrift
+              slug={post.slug}
+              categories={post.categories.map((category) => category.slug)}
+            />
           </div>
         </div>
       </div>
@@ -39,19 +42,26 @@ const PostDetails = ({ post }) => {
 export default PostDetails;
 
 export async function getStaticProps({ params }) {
-  const data = await getPostDetails(params.slug);
-  return {
-    props: {
-      post: data,
-    },
-  };
+  try {
+    const data = await getPostDetails(params.slug);
+    return {
+      props: {
+        post: data,
+      },
+    };
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export async function getStaticPaths() {
-  const posts = await getPosts();
-
-  return {
-    paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
-    fallback: true,
-  };
+  try {
+    const posts = await getPosts();
+    return {
+      paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
+      fallback: true,
+    };
+  } catch (err) {
+    console.log(err);
+  }
 }

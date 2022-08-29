@@ -33,12 +33,6 @@ const Header = () => {
           <Link href="/">
             <div className="flex items-center">
               <div className="cursor-pointer logo-on-hover"></div>
-{/*               <img
-                src="/assets/img/icon.svg"
-                width="64px"
-                height="64px"
-                className="cursor-pointer logo-on-hover"
-              /> */}
               <span className="md:text-4xl cursor-pointer font-bold text-2xl text-black fill-on-hover" data-text='Wilde'>
                 Wilde
               </span>
@@ -76,7 +70,7 @@ const Header = () => {
             }}
           >
             {categories.map((category) => (
-              <MenuItem selected={category === "Pyxis"} onClick={handleClose}>
+              <MenuItem selected={category === "Pyxis"} onClick={handleClose} key={category.name}>
                 <Link key={category.slug} href={`/category/${category.slug}`}>
                   {category.name}
                 </Link>
