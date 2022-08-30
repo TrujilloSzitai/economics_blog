@@ -26,7 +26,7 @@ const Home: NextPage<Props> = (props) => {
         </div>
         <div className="lg:col-span-4 col-span-1">
           <div className="lg:sticky relative top-8">
-            <PostAdrift />
+            <PostAdrift categories={[]} slug='' />
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@ const Home: NextPage<Props> = (props) => {
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getStaticProps = async () => {
   try {
     const posts = (await getPosts()) || [];
     return {

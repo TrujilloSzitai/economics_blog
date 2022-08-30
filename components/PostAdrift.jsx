@@ -9,7 +9,7 @@ const PostAdrift = ({categories, slug}) => {
   const [relatedPosts, setRelatedPosts] = useState([]);
 
   useEffect(()=>{
-    if(slug){
+    if(slug && slug.length > 0){
       getSimilarPosts(categories, slug)
         .then((result)=>setRelatedPosts(result))
     } else {

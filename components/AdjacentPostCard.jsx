@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import 'moment/locale/es'
 import Link from 'next/link';
+jest.useFakeTimers();
 
 /* SECCIÓN PARA MOSTRAR POSTS ADYACENTES */
 
