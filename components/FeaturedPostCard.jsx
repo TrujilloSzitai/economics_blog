@@ -6,10 +6,10 @@ import Link from 'next/link';
 /* TARJETA PARA MOSTAR LOS POSTS DESTACADOS */
 
 const FeaturedPostCard = ({ post }) => (
-  <div className="relative h-72">
-    <div className="absolute rounded-lg bg-center bg-no-repeat bg-cover shadow-md inline-block w-full h-72" style={{ backgroundImage: `url('${post.thumbnail.url}')` }} />
+  <div className="relative h-72 hover:scale-95 ease duration-500">
+    <div className="absolute rounded-lg bg-center bg-no-repeat bg-cover shadow-md inline-block w-full h-72 opacity-80" style={{ backgroundImage: `url('${post.thumbnail.url}')` }} />
     <div className="absolute rounded-lg bg-center bg-gradient-to-b opacity-50 from-gray-400 via-gray-700 to-black w-full h-72" />
-    <div className="flex flex-col rounded-lg p-4 items-center justify-center absolute w-full h-full">
+    <div className="flex flex-col rounded-lg p-4 items-center justify-center absolute w-full h-full ">
       <p className="text-white mb-4 text-shadow font-semibold text-xs">{moment(post.createdAt).format('MMM DD, YYYY')}</p>
       <p className="text-white mb-4 text-shadow font-semibold text-2xl text-center">{post.title}</p>
       <div className="flex items-center absolute bottom-5 w-full justify-center">
@@ -18,10 +18,10 @@ const FeaturedPostCard = ({ post }) => (
           alt={post.author.name}
           height="30px"
           width="30px"
-          className="align-middle drop-shadow-lg rounded-full"
+          className="align-middle drop-shadow-lg rounded-full bg-white opacity-75"
           src={post.author.pfp.url}
         />
-        <p className="inline align-middle text-white text-shadow ml-2 font-medium">{post.author.name}</p>
+        <p className="inline align-middle text-white text-shadow ml-2 font-medium drop">{post.author.name}</p>
       </div>
     </div>
     <Link href={`/post/${post.slug}`}><span className="cursor-pointer absolute w-full h-full" /></Link>

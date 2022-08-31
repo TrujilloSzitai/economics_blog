@@ -1,43 +1,12 @@
 import React from "react";
 import moment from "moment";
 import "moment/locale/es";
+import { RichText } from "@graphcms/rich-text-react-renderer";
+import { renderzr } from '../json/index'
 
 /* ALGORITMO PARA ESTABLECER LOS DETALLES DEL DISPLAY DE CADA POST */
 
 const PostDetail = ({ post }) => {
-
-  const getContentFragment = (index, text, item, type) =>{
-    let modifiedText = text;
-
-    if(item){
-      if(item.bold) modifiedText = (<b key={index}>{text}</b>)
-
-      if(item.italic) modifiedText = (<em key={index}>{text}</em>)
-
-      if(item.underline) modifiedText = (<u key={index}>{text}</u>)
-    }
-
-    switch (type) {
-      case 'heading-three': return <h3 key={index} className='text-xl font-semibold mb-4'>{modifiedText.map((item, i)=> <React.Fragment key={i}>{item}</React.Fragment>)}</h3>
-
-      case 'paragraph': return <p key={index} className='mb-8'>{modifiedText.map((item, i)=> <React.Fragment key={i}>{item}</React.Fragment>)}</p>
-
-      case 'heading-four': return <h4 key={index} className="text-md font-semibold mb-4">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</h4>;
-
-      case 'image':
-        return (
-          <img
-            key={index}
-            alt={item.title}
-            height={item.height}
-            width={item.width}
-            src={item.src}
-          />
-        );
-      default:
-        return modifiedText;
-    }
-  };
   
   return (
     <div className="bg-white shadow-lg rounded-lg lg:p-8 pb-12 mb-8">
@@ -81,10 +50,12 @@ const PostDetail = ({ post }) => {
           </div>
         </div>
         <h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>
-        {post.content.raw.children.map((obj, index)=>{
-          const children = obj.children.map((item, itemIndex) => getContentFragment(itemIndex, item.text, item))
-          return getContentFragment(index, children, obj, obj.type)
-        })}
+
+        <RichText
+        content={post.content.raw}
+        renderers={renderzr}
+      />
+      
       </div>
     </div>
   );

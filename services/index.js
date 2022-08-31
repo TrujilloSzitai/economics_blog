@@ -1,3 +1,4 @@
+import { graphql } from "graphql";
 import { request, gql } from "graphql-request";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
@@ -298,3 +299,24 @@ export const getAdjacentPosts = async (createdAt, slug) => {
     console.log(err);
   }
 };
+
+export const getAboutContent = async () => {
+  const query = gql`
+    query GetAboutContent(){
+      about (
+          where: { id: "cl7gsj1w086ew0cj1rvs2jl6r"}
+        ) {
+        content {
+          raw
+        }
+      }
+    } 
+  `;
+
+  try {
+    const response = await request(graphqlAPI, query);
+    return response.about;
+  } catch(err){
+    console.log(err);
+  }
+}
